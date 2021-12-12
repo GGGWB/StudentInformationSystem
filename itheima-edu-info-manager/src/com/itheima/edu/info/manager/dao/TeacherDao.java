@@ -23,4 +23,27 @@ public class TeacherDao {
     public Teacher[] findAllTeacher() {
         return teachers;
     }
+
+    public void deleteTeacherById(String id) {
+        int index = getIndex(id);
+        teachers[index] = null;
+    }
+
+    public int getIndex(String id) {
+        int index = -1;
+        for (int i = 0; i < teachers.length; i++) {
+            Teacher teacher = teachers[i];
+            if(teacher != null && teacher.getId().equals(id)){
+                index = i;
+                break;
+            }
+        }
+        return index;
+
+    }
+
+    public void updateTeacherById(String id, Teacher teacher) {
+        int index = getIndex(id);
+        teachers[index] = teacher;
+    }
 }

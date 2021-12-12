@@ -36,4 +36,12 @@ public class TeacherService {
             return null;
         }
     }
+
+    public void deleteTeacherById(String id) {
+        teacherDao.deleteTeacherById(id);
+    }
+
+    public void updateTeacherById(String id, Teacher teacher) {
+        teacherDao.updateTeacherById(id, teacher);
+    }
 }

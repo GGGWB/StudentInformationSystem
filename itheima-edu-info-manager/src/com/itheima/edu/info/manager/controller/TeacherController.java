@@ -19,11 +19,14 @@ public class TeacherController {
                     addTeacher();
                     break;
                 case "2":
-                    System.out.println("删除老师");
+//                    System.out.println("删除老师");
+                    delateTeacherById();
                     break;
                 case "3":
-                    System.out.println("修改老师");
+//                    System.out.println("修改老师");
+                    updateTeacherById();
                     break;
+
                 case "4":
 //                    System.out.println("查看老师");
                     findAllTeacher();
@@ -38,6 +41,40 @@ public class TeacherController {
         }
 
 
+    }
+
+    public void updateTeacherById() {
+        String id;
+        while(true){
+            System.out.println("请输入您想要更新的老师id");
+            id = sc.next();
+            boolean exists = teacherService.isExits(id);
+            if(!exists){
+                System.out.println("您输入的id有误，请重新输入");
+            }else{
+                break;
+            }
+        }
+        Teacher teacher = inputTeacherInfo(id);
+        teacherService.updateTeacherById(id, teacher);
+        System.out.println("更新成功");
+
+    }
+
+    public void delateTeacherById() {
+        String id;
+        while(true){
+            System.out.println("请输入您要删除的老师id");
+            id = sc.next();
+            boolean exists = teacherService.isExits(id);
+            if(!exists){
+                System.out.println("您输入的id不存在，请重新输入");
+            }else{
+                break;
+            }
+        }
+        teacherService.deleteTeacherById(id);
+        System.out.println("删除老师成功");
     }
 
     public void findAllTeacher() {
@@ -68,6 +105,18 @@ public class TeacherController {
             }
 
         }
+        Teacher teacher = inputTeacherInfo(id);
+
+        boolean result = teacherService.addTeacher(teacher);
+        if(!result){
+            System.out.println("添加失败");
+        }else{
+            System.out.println("添加成功");
+        }
+
+    }
+
+    public Teacher inputTeacherInfo(String id) {
         System.out.println("请输入老师名字");
         String name = sc.next();
         System.out.println("请输入老师年龄");
@@ -81,13 +130,6 @@ public class TeacherController {
         teacher.setName(name);
         teacher.setAge(age);
         teacher.setBirthday(birthday);
-
-        boolean result = teacherService.addTeacher(teacher);
-        if(!result){
-            System.out.println("添加失败");
-        }else{
-            System.out.println("添加成功");
-        }
-
+        return teacher;
     }
 }
